@@ -1,0 +1,33 @@
+<resources>
+    <string name="decision_title">올바른 결정</string>
+    <string name="decision_loading">불러오는 중...</string>
+    <string name="decision_empty">기록이 없습니다. 새로 작성해 보세요.</string>
+    <string name="decision_view_title">결정 기록 상세</string>
+    <string name="decision_edit_new_title">결정 기록 작성</string>
+    <string name="decision_edit_edit_title">결정 기록 수정</string>
+    <string name="decision_option_a_label">선택지 A</string>
+    <string name="decision_option_b_label">선택지 B</string>
+    <string name="decision_reasons_section">그럼에도 불구 이유(교차 작성)</string>
+    <string name="decision_reasons_hint">기본 3쌍(A/B)은 먼저 작성하고, 나머지는 + 버튼으로 추가하세요.</string>
+    <string name="decision_progress_label">작성 진행</string>
+    <string name="decision_progress_text">A: %1$d개 / B: %2$d개 (저장 최소 %3$d개)</string>
+    <string name="decision_next_target">다음 입력 차례: %1$s</string>
+    <string name="decision_target_a">A 이유</string>
+    <string name="decision_target_b">B 이유</string>
+    <string name="decision_round_label">라운드 %1$d</string>
+    <string name="decision_conclusion_label">마지막 결론</string>
+    <string name="decision_remove_last">마지막 이유 삭제</string>
+    <string name="decision_delete_confirm">이 기록을 삭제할까요?</string>
+    <string name="decision_tutorial_title">결정 튜토리얼</string>
+    <string name="decision_tutorial_heading">올바른 결정을 위한 “그럼에도 불구” 기록</string>
+    <string name="decision_tutorial_intro_1">본 기록은 두 선택지에 대한 이유를 교차적으로 탐색하여 사고의 편향을 줄이고 인지적 유연성을 높이는 의사결정 방법입니다. 이는 동기강화상담(Motivational Interviewing)의 양면 평가(Decisional Balance)와 수용전념치료(Acceptance and Commitment Therapy)의 인지적 탈융합(Defusion) 원리에 기반합니다.</string>
+    <string name="decision_tutorial_intro_2">사람은 이미 기울어진 선택을 정당화하는 이유만 모으는 경향(확증편향)이 있습니다. 본 기록은 한 선택의 이유를 작성한 뒤 “그럼에도 불구하고” 다른 선택의 이유를 계속 생성함으로써 관점 전환과 균형 잡힌 판단을 돕습니다.</string>
+    <string name="decision_tutorial_intro_3">이 과정을 반복하면 각 선택이 나의 어떤 가치와 연결되는지 드러나며, 마지막에는 더 중요한 방향에 기반한 결론을 내릴 수 있습니다.</string>
+    <string name="decision_tutorial_howto_title">작성 방법</string>
+    <string name="decision_tutorial_step_1">두 가지 선택을 적습니다 : 고민되는 두 대안을 그대로 씁니다.\n예) 오늘 복근을 할까? vs 오늘 하체를 할까?</string>
+    <string name="decision_tutorial_step_2">첫 번째 선택을 해야 하는 이유를 적습니다 : 떠오르는 근거를 자유롭게 씁니다.\n예) 최근 복근 운동을 못 했다 / 코어가 약하다</string>
+    <string name="decision_tutorial_step_3">그럼에도 불구하고 두 번째 선택을 해야 하는 이유를 적습니다 : 관점을 전환하여 근거를 씁니다.\n예) 하체가 더 큰 근육이라 운동 효율이 높다</string>
+    <string name="decision_tutorial_step_4">다시 첫 번째 선택의 이유를 적습니다 : 새로운 이유를 계속 확장합니다.\n예) 복근은 부상 예방에 중요하다</string>
+    <string name="decision_tutorial_step_5">위 과정을 교차로 반복합니다 : 각 선택의 이유를 최소 5개 이상 작성합니다. 필요하면 추가합니다.</string>
+    <string name="decision_tutorial_step_6">마지막 결론을 적습니다 : 이유들을 살펴본 뒤 지금의 나에게 더 중요한 선택을 기록합니다.\n예) 오늘은 하체를 한다. 전체 체력 향상이 더 우선이다.</string>
+</resources>

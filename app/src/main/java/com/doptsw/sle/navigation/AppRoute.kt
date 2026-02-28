@@ -1,0 +1,30 @@
+package com.doptsw.sle.navigation
+
+object AppRoute {
+    const val MainMenu = "main_menu"
+    const val BreathingSetup = "breathing_setup"
+    const val BreathingSession = "breathing_session/{rounds}"
+    const val BreathingTutorial = "breathing_tutorial"
+    const val DecisionEntry = "decision_entry"
+    const val DecisionList = "decision_list"
+    const val DecisionEditNew = "decision_edit/new"
+    const val DecisionView = "decision_view/{id}"
+    const val DecisionEditExisting = "decision_edit/{id}"
+    const val DecisionTutorial = "decision_tutorial"
+    const val DiaryCalendar = "diary_calendar"
+    const val DiaryDayList = "diary_day_list/{date}"
+    const val DiaryView = "diary_view/{entryId}"
+    const val DiaryEditNew = "diary_edit/new?date={date}"
+    const val DiaryEditExisting = "diary_edit/{entryId}"
+    const val DiarySearch = "diary_search"
+    const val DiaryTutorial = "diary_tutorial"
+    const val VideoPlaceholder = "video_placeholder"
+
+    fun breathingSession(rounds: Int): String = "breathing_session/$rounds"
+    fun decisionView(id: Long): String = "decision_view/$id"
+    fun decisionEdit(id: Long): String = "decision_edit/$id"
+    fun diaryDayList(date: String): String = "diary_day_list/$date"
+    fun diaryView(entryId: Long): String = "diary_view/$entryId"
+    fun diaryEditNew(date: String): String = "diary_edit/new?date=$date"
+    fun diaryEdit(entryId: Long): String = "diary_edit/$entryId"
+}
