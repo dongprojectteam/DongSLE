@@ -8,13 +8,14 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    entities = [DiaryEntryEntity::class, DecisionRecordEntity::class],
-    version = 2,
+    entities = [DiaryEntryEntity::class, DecisionRecordEntity::class, DiscResultEntity::class],
+    version = 3,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun diaryDao(): DiaryDao
     abstract fun decisionDao(): DecisionDao
+    abstract fun discDao(): DiscDao
 
     companion object {
         @Volatile
@@ -28,6 +29,7 @@ abstract class AppDatabase : RoomDatabase() {
                     "sle.db"
                 )
                     .addMigrations(MIGRATION_1_2)
+                    .addMigrations(MIGRATION_2_3)
                     .build()
                 INSTANCE = instance
                 instance
@@ -47,6 +49,26 @@ abstract class AppDatabase : RoomDatabase() {
                         conclusion TEXT NOT NULL,
                         createdAt INTEGER NOT NULL,
                         updatedAt INTEGER NOT NULL
+                    )
+                    """.trimIndent()
+                )
+            }
+        }
+
+        private val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS disc_results (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        answersJson TEXT NOT NULL,
+                        d INTEGER NOT NULL,
+                        i INTEGER NOT NULL,
+                        s INTEGER NOT NULL,
+                        c INTEGER NOT NULL,
+                        topTypesCsv TEXT NOT NULL,
+                        interpretationKey TEXT NOT NULL,
+                        createdAt INTEGER NOT NULL
                     )
                     """.trimIndent()
                 )

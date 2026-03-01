@@ -3,6 +3,7 @@
 package com.doptsw.sle.feature.decision
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -433,7 +434,9 @@ private fun TagRow() {
                 color = Color(0xFFDDE8FF),
                 style = MaterialTheme.typography.labelSmall,
                 modifier = Modifier
-                    .padding(top = 4.dp)
+                    .clip(RoundedCornerShape(999.dp))
+                    .background(Color(0x263F7CFF))
+                    .padding(horizontal = 10.dp, vertical = 5.dp)
             )
         }
     }
@@ -484,4 +487,3 @@ private fun AlternatingReasonBlock(
 private fun formatDate(ts: Long): String {
     return SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault()).format(Date(ts))
 }
-

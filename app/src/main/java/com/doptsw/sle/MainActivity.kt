@@ -28,6 +28,10 @@ import com.doptsw.sle.feature.diary.DiaryEditScreen
 import com.doptsw.sle.feature.diary.DiarySearchScreen
 import com.doptsw.sle.feature.diary.DiaryTutorialScreen
 import com.doptsw.sle.feature.diary.DiaryViewScreen
+import com.doptsw.sle.feature.disc.DiscHomeScreen
+import com.doptsw.sle.feature.disc.DiscQuestionScreen
+import com.doptsw.sle.feature.disc.DiscResultScreen
+import com.doptsw.sle.feature.disc.DiscTutorialScreen
 import com.doptsw.sle.feature.mainmenu.MainMenuScreen
 import com.doptsw.sle.feature.security.AppLockGate
 import com.doptsw.sle.feature.video.VideoListScreen
@@ -62,6 +66,7 @@ private fun SleApp() {
                 onDiaryClick = { navController.navigate(AppRoute.DiaryCalendar) },
                 onBreathingClick = { navController.navigate(AppRoute.BreathingSetup) },
                 onDecisionClick = { navController.navigate(AppRoute.DecisionEntry) },
+                onDiscClick = { navController.navigate(AppRoute.DiscHome) },
                 onVideoClick = { navController.navigate(AppRoute.VideoList) }
             )
         }
@@ -138,6 +143,45 @@ private fun SleApp() {
         }
         composable(AppRoute.DecisionTutorial) {
             DecisionTutorialScreen(onBack = { navController.popBackStack() })
+        }
+        composable(AppRoute.DiscHome) {
+            DiscHomeScreen(
+                onBack = { navController.popBackStack() },
+                onStartDiagnosis = { navController.navigate(AppRoute.DiscQuestion) },
+                onTutorial = { navController.navigate(AppRoute.DiscTutorial) },
+                onOpenResult = { id -> navController.navigate(AppRoute.discResult(id)) }
+            )
+        }
+        composable(AppRoute.DiscQuestion) {
+            DiscQuestionScreen(
+                onBack = { navController.popBackStack() },
+                onMainMenu = {
+                    navController.navigate(AppRoute.MainMenu) {
+                        popUpTo(AppRoute.MainMenu) { inclusive = false }
+                        launchSingleTop = true
+                    }
+                },
+                onCompleted = { resultId ->
+                    navController.navigate(AppRoute.discResult(resultId)) {
+                        popUpTo(AppRoute.DiscQuestion) { inclusive = true }
+                    }
+                }
+            )
+        }
+        composable(AppRoute.DiscResult) {
+            DiscResultScreen(
+                onBack = { navController.popBackStack() },
+                onRestart = { navController.navigate(AppRoute.DiscQuestion) },
+                onMainMenu = {
+                    navController.navigate(AppRoute.MainMenu) {
+                        popUpTo(AppRoute.MainMenu) { inclusive = false }
+                        launchSingleTop = true
+                    }
+                }
+            )
+        }
+        composable(AppRoute.DiscTutorial) {
+            DiscTutorialScreen(onBack = { navController.popBackStack() })
         }
         composable(AppRoute.VideoList) {
             VideoListScreen(onBack = { navController.popBackStack() })
