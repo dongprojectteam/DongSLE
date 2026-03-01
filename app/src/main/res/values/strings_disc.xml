@@ -1,0 +1,29 @@
+<resources>
+    <string name="menu_disc">DISC 진단</string>
+    <string name="menu_disc_subtitle">Behavior style diagnosis</string>
+
+    <string name="disc_home_title">DISC 진단</string>
+    <string name="disc_home_heading">행동 패턴을 점검해보세요</string>
+    <string name="disc_home_subtitle">28문항 Most/Least 선택으로 D·I·S·C 성향을 확인할 수 있습니다.</string>
+    <string name="disc_start_diagnosis">진단 시작</string>
+    <string name="disc_start_diagnosis_subtitle">한 문항씩 차례대로 응답합니다.</string>
+    <string name="disc_tutorial">튜토리얼</string>
+    <string name="disc_tutorial_subtitle">DISC 모델 설명과 읽는 법을 확인합니다.</string>
+    <string name="disc_recent_results">최근 결과</string>
+    <string name="disc_recent_empty">아직 저장된 DISC 결과가 없습니다.</string>
+
+    <string name="disc_question_title">DISC 문항</string>
+    <string name="disc_question_prompt">%1$d번 문항</string>
+    <string name="disc_most_label">가장 가까운 것 (Most)</string>
+    <string name="disc_least_label">가장 먼 것 (Least)</string>
+    <string name="disc_prev">이전</string>
+    <string name="disc_next">다음</string>
+    <string name="disc_finish">결과 보기</string>
+    <string name="disc_main_menu">메인으로</string>
+
+    <string name="disc_result_title">DISC 결과</string>
+    <string name="disc_loading">불러오는 중...</string>
+    <string name="disc_restart">다시 진단</string>
+
+    <string name="disc_tutorial_title">DISC 튜토리얼</string>
+</resources>

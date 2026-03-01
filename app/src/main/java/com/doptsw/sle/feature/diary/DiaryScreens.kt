@@ -645,7 +645,7 @@ private fun TutorialTags(tags: List<String>) {
                 modifier = Modifier
                     .clip(RoundedCornerShape(999.dp))
                     .background(Color(0x263F7CFF))
-                    .padding(horizontal = 10.dp, vertical = 4.dp)
+                    .padding(horizontal = 10.dp, vertical = 5.dp)
             ) {
                 Text(text = tag, style = MaterialTheme.typography.labelSmall, color = Color(0xFFDDE8FF))
             }

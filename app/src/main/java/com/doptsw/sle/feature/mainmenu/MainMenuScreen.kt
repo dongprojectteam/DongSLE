@@ -21,6 +21,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.Lightbulb
 import androidx.compose.material.icons.rounded.PlayCircle
+import androidx.compose.material.icons.rounded.Psychology
 import androidx.compose.material.icons.rounded.Spa
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -45,6 +46,7 @@ fun MainMenuScreen(
     onDiaryClick: () -> Unit,
     onBreathingClick: () -> Unit,
     onDecisionClick: () -> Unit,
+    onDiscClick: () -> Unit,
     onVideoClick: () -> Unit
 ) {
     val items = listOf(
@@ -68,6 +70,13 @@ fun MainMenuScreen(
             icon = Icons.Rounded.Lightbulb,
             accent = Color(0xFFF2A63A),
             onClick = onDecisionClick
+        ),
+        MenuItem(
+            label = stringResource(R.string.menu_disc),
+            subtitle = stringResource(R.string.menu_disc_subtitle),
+            icon = Icons.Rounded.Psychology,
+            accent = Color(0xFF6D63E8),
+            onClick = onDiscClick
         ),
         MenuItem(
             label = stringResource(R.string.menu_video),
@@ -99,7 +108,7 @@ fun MainMenuScreen(
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
                             Text(
-                                text = "오늘의 상태를 정리해보세요",
+                                text = "나의 감정과 생각을 올바르게 이해하세요",
                                 color = Color.White,
                                 fontWeight = FontWeight.SemiBold
                             )
@@ -169,7 +178,7 @@ fun MainMenuScreen(
                             style = androidx.compose.material3.MaterialTheme.typography.labelMedium
                         )
                         Text(
-                            text = "v1.0.1.0",
+                            text = "v1.2.0.0",
                             color = Color(0xFF9AA4B4),
                             style = androidx.compose.material3.MaterialTheme.typography.labelSmall,
                             modifier = Modifier.padding(top = 4.dp)
