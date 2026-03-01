@@ -12,6 +12,14 @@ interface DiaryDao {
     @Query(
         """
         SELECT * FROM diary_entries
+        ORDER BY updatedAt DESC
+        """
+    )
+    fun getAllEntriesDesc(): Flow<List<DiaryEntryEntity>>
+
+    @Query(
+        """
+        SELECT * FROM diary_entries
         WHERE entryDate = :date
         ORDER BY updatedAt DESC
         """

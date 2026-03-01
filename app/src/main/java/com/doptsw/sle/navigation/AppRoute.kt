@@ -18,7 +18,7 @@ object AppRoute {
     const val DiaryEditExisting = "diary_edit/{entryId}"
     const val DiarySearch = "diary_search"
     const val DiaryTutorial = "diary_tutorial"
-    const val VideoPlaceholder = "video_placeholder"
+    const val VideoList = "video_list"
 
     fun breathingSession(rounds: Int): String = "breathing_session/$rounds"
     fun decisionView(id: Long): String = "decision_view/$id"

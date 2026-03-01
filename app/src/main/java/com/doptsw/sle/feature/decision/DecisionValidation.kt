@@ -1,7 +1,7 @@
 package com.doptsw.sle.feature.decision
 
 object DecisionValidation {
-    const val MIN_REQUIRED_REASONS = 5
+    const val MIN_REQUIRED_REASONS = 3
     const val INITIAL_REQUIRED_PAIRS = 3
 
     fun validate(state: DecisionEditUiState): DecisionValidationResult {

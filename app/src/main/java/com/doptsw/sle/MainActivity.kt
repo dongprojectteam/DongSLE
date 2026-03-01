@@ -6,11 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.doptsw.sle.feature.common.PlaceholderScreen
 import com.doptsw.sle.feature.breathing.BreathingSessionScreen
 import com.doptsw.sle.feature.breathing.BreathingSetupScreen
 import com.doptsw.sle.feature.breathing.BreathingTutorialScreen
@@ -26,6 +29,8 @@ import com.doptsw.sle.feature.diary.DiarySearchScreen
 import com.doptsw.sle.feature.diary.DiaryTutorialScreen
 import com.doptsw.sle.feature.diary.DiaryViewScreen
 import com.doptsw.sle.feature.mainmenu.MainMenuScreen
+import com.doptsw.sle.feature.security.AppLockGate
+import com.doptsw.sle.feature.video.VideoListScreen
 import com.doptsw.sle.navigation.AppRoute
 
 class MainActivity : ComponentActivity() {
@@ -43,6 +48,13 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun SleApp() {
+    var unlocked by rememberSaveable { mutableStateOf(false) }
+
+    if (!unlocked) {
+        AppLockGate(onUnlocked = { unlocked = true })
+        return
+    }
+
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AppRoute.MainMenu) {
         composable(AppRoute.MainMenu) {
@@ -50,7 +62,7 @@ private fun SleApp() {
                 onDiaryClick = { navController.navigate(AppRoute.DiaryCalendar) },
                 onBreathingClick = { navController.navigate(AppRoute.BreathingSetup) },
                 onDecisionClick = { navController.navigate(AppRoute.DecisionEntry) },
-                onVideoClick = { navController.navigate(AppRoute.VideoPlaceholder) }
+                onVideoClick = { navController.navigate(AppRoute.VideoList) }
             )
         }
         composable(AppRoute.BreathingSetup) {
@@ -127,8 +139,8 @@ private fun SleApp() {
         composable(AppRoute.DecisionTutorial) {
             DecisionTutorialScreen(onBack = { navController.popBackStack() })
         }
-        composable(AppRoute.VideoPlaceholder) {
-            PlaceholderScreen(onBack = { navController.popBackStack() })
+        composable(AppRoute.VideoList) {
+            VideoListScreen(onBack = { navController.popBackStack() })
         }
         composable(AppRoute.DiaryCalendar) {
             DiaryCalendarScreen(

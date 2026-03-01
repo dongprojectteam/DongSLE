@@ -1,4 +1,4 @@
-@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
+﻿@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 
 package com.doptsw.sle.feature.decision
 
@@ -180,13 +180,15 @@ fun DecisionViewScreen(
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Text(item.titleText(), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
-            ReasonListBlock("A 선택 이유", item.reasonsA)
-            ReasonListBlock("B 선택 이유", item.reasonsB)
+            AlternatingReasonBlock(
+                reasonsA = item.reasonsA,
+                reasonsB = item.reasonsB
+            )
+            Text("그래서 결론은", fontWeight = FontWeight.SemiBold, color = Color(0xFF2A67F8))
             ElevatedCard(
                 colors = CardDefaults.elevatedCardColors(containerColor = Color(0xFFEEF5FF))
             ) {
                 Column(modifier = Modifier.padding(12.dp)) {
-                    Text("결론", fontWeight = FontWeight.SemiBold)
                     Text(item.conclusion, modifier = Modifier.padding(top = 6.dp))
                 }
             }
@@ -317,7 +319,7 @@ fun DecisionEditScreen(
                                     )
                                 },
                                 modifier = Modifier.fillMaxWidth(),
-                                label = { Text("A 이유 #${i + 1}") }
+                                label = { Text("A 를 선택하는 이유 #${i + 1}") }
                             )
                         }
                         if (i < state.reasonsB.size) {
@@ -330,7 +332,7 @@ fun DecisionEditScreen(
                                     )
                                 },
                                 modifier = Modifier.fillMaxWidth(),
-                                label = { Text("B 이유 #${i + 1}") }
+                                label = { Text("B 를 선택하는 이유 #${i + 1}") }
                             )
                         } else {
                             Box(
@@ -340,7 +342,7 @@ fun DecisionEditScreen(
                                     .padding(6.dp)
                             ) {
                                 Text(
-                                    text = "다음 + 버튼으로 B 이유를 추가하세요.",
+                                    text = "B의 추가가 더 필요하면 추가 버튼을 또 누르세요.",
                                     color = Color(0xFF6A7486)
                                 )
                             }
@@ -457,17 +459,29 @@ private fun StepCard(step: String, text: String) {
 }
 
 @Composable
-private fun ReasonListBlock(title: String, values: List<String>) {
+private fun AlternatingReasonBlock(
+    reasonsA: List<String>,
+    reasonsB: List<String>
+) {
+    val rounds = maxOf(reasonsA.size, reasonsB.size)
+    val orderedReasons = buildList {
+        for (i in 0 until rounds) {
+            if (i < reasonsA.size) add(reasonsA[i])
+            if (i < reasonsB.size) add(reasonsB[i])
+        }
+    }
     Card {
-        Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text(title, fontWeight = FontWeight.SemiBold)
-            values.forEachIndexed { index, text ->
-                Text("${index + 1}. $text")
+        Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            orderedReasons.forEachIndexed { index, reason ->
+                Text(reason, color = Color(0xFF36465D))
+                if (index != orderedReasons.lastIndex) {
+                    Text("그럼에도 불구하고", color = Color(0xFF2A67F8), fontWeight = FontWeight.SemiBold)
+                }
             }
         }
     }
 }
-
 private fun formatDate(ts: Long): String {
     return SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault()).format(Date(ts))
 }
+

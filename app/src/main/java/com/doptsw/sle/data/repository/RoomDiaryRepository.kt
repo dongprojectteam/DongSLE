@@ -8,6 +8,10 @@ import kotlinx.coroutines.flow.map
 class RoomDiaryRepository(
     private val dao: DiaryDao
 ) : DiaryRepository {
+    override fun observeAllEntriesDesc(): Flow<List<DiaryEntry>> {
+        return dao.getAllEntriesDesc().map { list -> list.map { it.toDomain() } }
+    }
+
     override fun observeDiaryDatesWithCount(monthStart: String, monthEnd: String): Flow<List<DiaryDateCount>> {
         return dao.getDateCounts(monthStart, monthEnd).map { list ->
             list.map { DiaryDateCount(entryDate = it.entryDate, count = it.count) }

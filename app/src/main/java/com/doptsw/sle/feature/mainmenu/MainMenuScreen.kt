@@ -168,6 +168,12 @@ fun MainMenuScreen(
                             color = Color(0xFF8A95A8),
                             style = androidx.compose.material3.MaterialTheme.typography.labelMedium
                         )
+                        Text(
+                            text = "v1.0.0.0",
+                            color = Color(0xFF9AA4B4),
+                            style = androidx.compose.material3.MaterialTheme.typography.labelSmall,
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
                     }
                 }
             }

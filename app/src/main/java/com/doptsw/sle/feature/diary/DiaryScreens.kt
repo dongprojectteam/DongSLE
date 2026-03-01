@@ -85,6 +85,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -99,6 +100,8 @@ fun DiaryCalendarScreen(
     val vm: DiaryCalendarViewModel = viewModel()
     val month by vm.month.collectAsState()
     val counts by vm.dateCounts.collectAsState()
+    val recentEntries by vm.recentEntries.collectAsState()
+    val canLoadMore by vm.canLoadMore.collectAsState()
     val countMap = remember(counts) { counts.associate { it.entryDate to it.count } }
     val cells = remember(month) { buildCalendarCells(month) }
     val weekdays = listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
@@ -165,6 +168,51 @@ fun DiaryCalendarScreen(
                                     }
                                 )
                             }
+                        }
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(14.dp))
+            Text(
+                text = "최근 감정 일기",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            if (recentEntries.isEmpty()) {
+                Card(modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        text = "아직 작성된 감정 일기가 없습니다.",
+                        modifier = Modifier.padding(12.dp),
+                        color = Color(0xFF6E798A)
+                    )
+                }
+            } else {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    recentEntries.forEach { entry ->
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable { onOpenDayList(entry.entryDate) }
+                        ) {
+                            Column(modifier = Modifier.padding(12.dp)) {
+                                Text(
+                                    text = formatDisplayDate(entry.entryDate),
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = Color(0xFF647186)
+                                )
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Text(text = entry.situation.take(80))
+                            }
+                        }
+                    }
+                    if (canLoadMore) {
+                        TextButton(
+                            onClick = vm::loadMoreRecent,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text("더 보기")
                         }
                     }
                 }
@@ -685,6 +733,7 @@ private fun toCalendarOffset(dayOfWeek: DayOfWeek): Int = dayOfWeek.value % 7
 class DiaryCalendarViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: DiaryRepository = (application as SleApplication).diaryRepository
     private val _month = MutableStateFlow(YearMonth.now())
+    private val _recentVisibleCount = MutableStateFlow(10)
     val month = _month.asStateFlow()
     val dateCounts = _month
         .flatMapLatest { yearMonth ->
@@ -695,12 +744,27 @@ class DiaryCalendarViewModel(application: Application) : AndroidViewModel(applic
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
+    private val allRecentEntries = repository.observeAllEntriesDesc()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+
+    val recentEntries = combine(allRecentEntries, _recentVisibleCount) { all, visible ->
+        all.take(visible)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+
+    val canLoadMore = combine(allRecentEntries, _recentVisibleCount) { all, visible ->
+        all.size > visible
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
+
     fun goPrevMonth() {
         _month.value = _month.value.minusMonths(1)
     }
 
     fun goNextMonth() {
         _month.value = _month.value.plusMonths(1)
+    }
+
+    fun loadMoreRecent() {
+        _recentVisibleCount.value = _recentVisibleCount.value + 10
     }
 }
 
